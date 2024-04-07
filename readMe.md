@@ -20,9 +20,9 @@ To use LlamaChat History, you need Python installed on your machine, along with 
    ```bash
    git clone <repository-url>
    ```
-2. Navigate to the LlamaChat directory:
+2. Navigate to the github cloned directory:
    ```bash
-   cd LlamaChat
+   cd CS-4793-Group-Project
    ```
 3. Install the required Python packages:
    ```bash
@@ -60,10 +60,8 @@ Ensure you have the latest versions of these dependencies to avoid compatibility
 
 ## Contributing
 
-Contributions to LlamaChat History are welcome! Whether it's adding new features, fixing bugs, or improving documentation, your help is appreciated. Fork the repository and submit pull requests with your changes.
-
-## License
-
-LlamaChat History is open-source software licensed under the MIT license. Feel free to use, modify, and distribute it as per the license agreement.
+1. Bronson Woods
+2. James Jolly
+3. Willam Vang
 
 ---
