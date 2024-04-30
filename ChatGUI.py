@@ -66,6 +66,7 @@ class LlamaChatHistory:
         self.text_area.yview(tk.END)
 
     def generate_response(self, user_input):
+        # if using different GGUF model replace the prompt_template with one that matches that model
         prompt_template = (
             "[INST] <<SYS>>"
             "You are a helpful, respectful, and honest assistant..."
@@ -102,7 +103,7 @@ class LlamaChatHistory:
         try:
             with open(file_path, 'r') as file:
                 self.history = json.load(file)
-            self.current_history_file = file_path  # Store the current file path
+            self.current_history_file = file_path
             self.text_area.config(state='normal')
             self.text_area.delete(1.0, tk.END)
             for prompt, response in self.history:
@@ -114,6 +115,8 @@ class LlamaChatHistory:
 
 # Usage
 root = tk.Tk()
-model_path = "/Users/bronsonwoods/AA_Projects/CS-4793-Group-Project/Models/llama-2-7b-chat.Q4_K_M.gguf"
+
+# Change to current LLM .gguf path
+model_path = "/Users/bronsonwoods/AA_Projects/CS-4793-Group-Project/Models/llama-2-7b-chat.Q4_K_M.gguf" 
 app = LlamaChatHistory(root, model_path)
 root.mainloop()

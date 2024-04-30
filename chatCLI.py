@@ -16,7 +16,7 @@ class LlamaChat_history:
         self.callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
         self.llama_model = LlamaCpp(
             model_path=self.model_path,
-            n_gpu_layers=0,
+            n_gpu_layers=-1,
             n_batch=512, 
             f16_kv=True,
             temperature=0.5,
@@ -38,6 +38,7 @@ class LlamaChat_history:
 
 
     def generate_response(self, user_input):
+        # if using different GGUF model replace the prompt_template with one that matches that model
         prompt_template = (
             "[INST] <<SYS>>"
             "You are a helpful, respectful, and honest assistant. Always answer as helpfully as possible, while being safe. Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature."
@@ -68,12 +69,11 @@ class LlamaChat_history:
         try:
             with open(file_path, 'r') as file:
                 self.history = json.load(file)
-            self.current_history_file = file_path 
+            self.current_history_file = file_path  # Store the current file path
         except (FileNotFoundError, json.JSONDecodeError):
             self.history = []
             self.current_history_file = None
 
-    
     def count_tokens(self, text):
         return len(text.split())
     
@@ -81,7 +81,8 @@ class LlamaChat_history:
         """Lists all chat history files in the given directory."""
         return glob.glob(os.path.join(directory, "chat_history_*.json"))
 
-    def interactive_chat(self, history_dir="/ChatHistory"):
+    # Change history_dir path to a folder you want to store the json chat logs
+    def interactive_chat(self, history_dir="/Users/bronsonwoods/AA_Projects/CS-4793-Group-Project/ChatHistory"):
         print("Llama Chat Initialized. Type 'exit' to end the conversation.")
 
         # List available chat histories
@@ -110,6 +111,7 @@ class LlamaChat_history:
         if save_action.lower() == 'yes':
             self.save_history(history_dir)
 # Usage
-model_path = "/Models/llama-2-7b-chat.Q4_K_M.gguf"
+# Change to current LLM .gguf path
+model_path = "/Users/bronsonwoods/AA_Projects/Glyph/Backend_LLM/models/llama-2-7b-chat.Q4_K_M.gguf"
 llama_chat = LlamaChat_history(model_path=model_path)
 llama_chat.interactive_chat()
